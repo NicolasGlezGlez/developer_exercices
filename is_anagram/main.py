@@ -6,6 +6,8 @@
 # - Two words that are exactly the same are not anagrams.
 
 
+import unittest
+
 def is_anagram(text1, text2):
     
     if text1 == text2:
@@ -16,10 +18,30 @@ def is_anagram(text1, text2):
     
     return sorted(text1) == sorted(text2)
 
-
+class TestAnagram(unittest.TestCase):
     
-print(is_anagram("amor", "Roma"))  #   True
-print(is_anagram("amor", "amor"))  #   False
-print(is_anagram("anagrama", "margana"))  #   False
-print(is_anagram("test", "sett"))  #   True
-print(is_anagram("python", "java"))  #   False
+    def test_anagrams(self):
+        self.assertTrue(is_anagram("amor", "Roma"))
+        self.assertTrue(is_anagram("test", "sett"))
+        self.assertTrue(is_anagram("elvis", "lives"))
+        self.assertTrue(is_anagram("finder", "friend"))
+        self.assertTrue(is_anagram("schoolmaster", "theclassroom"))
+
+    def test_not_anagrams(self):
+        self.assertFalse(is_anagram("amor", "amor"))
+        self.assertFalse(is_anagram("anagrama", "margana"))
+        self.assertFalse(is_anagram("python", "java"))
+        self.assertFalse(is_anagram("hello", "world"))
+        self.assertFalse(is_anagram("apple", "pale"))
+
+    def test_empty_strings(self):
+        self.assertFalse(is_anagram("", ""))
+        self.assertFalse(is_anagram("a", ""))
+        self.assertFalse(is_anagram("", "a"))
+
+    def test_different_lengths(self):
+        self.assertFalse(is_anagram("a", "aa"))
+        self.assertFalse(is_anagram("abc", "abcd"))
+
+if __name__ == '__main__':
+    unittest.main()
